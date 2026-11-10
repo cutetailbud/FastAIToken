@@ -8,6 +8,13 @@
 
 <p><sub><a href="./README.md">简体中文</a> · <a href="./README.en.md">English</a> · <b>日本語</b> · <a href="./README.ko.md">한국어</a> · <a href="./README.ru.md">Русский</a> · <a href="./README.kk.md">Қазақша</a> · <a href="./README.vi.md">Tiếng Việt</a> · <a href="./README.th.md">ภาษาไทย</a> · <a href="./README.id.md">Bahasa Indonesia</a> · <a href="./README.ms.md">Bahasa Melayu</a></sub></p>
 
+<p>
+  <a href="https://github.com/cutetailbud/FastAIToken/actions/workflows/ci.yml"><img src="https://github.com/cutetailbud/FastAIToken/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
+  <a href="https://github.com/cutetailbud/FastAIToken/releases"><img src="https://img.shields.io/github/v/release/cutetailbud/FastAIToken" alt="Release"></a>
+  <a href="./LICENSE"><img src="https://img.shields.io/github/license/cutetailbud/FastAIToken" alt="License"></a>
+  <a href="./pricing.json"><img src="https://img.shields.io/badge/pricing-JSON-blue" alt="pricing.json"></a>
+</p>
+
 </div>
 
 <br>
@@ -212,6 +219,8 @@ resp = client.chat.completions.create(
 )
 print(resp.choices[0].message.content)
 ```
+
+[examples/](./examples) · [pricing.json](./pricing.json) · [CHANGELOG](./CHANGELOG.md) · [CONTRIBUTING](./CONTRIBUTING.md) · [SECURITY](./SECURITY.md) · [SUPPORT](./SUPPORT.md)
 
 ## 請求書と法人契約
 

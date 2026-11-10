@@ -5,7 +5,8 @@ Usage (from the repo root):
 
 Edit data.py for prices, extra.py for the exchange rate, i18n.py / extra.py for wording.
 """
-import sys, os
+import os
+import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from data import *
 from i18n import T, ORDER
@@ -66,6 +67,14 @@ def render(lc):
     a(f"<p><b>{t['tagline']}</b></p>\n")
     a(f'<p><a href="{URL}">{t["website"]}</a> &nbsp;|&nbsp; {QQ_LABEL[lc]}: <b>{QQ_GROUP}</b></p>\n')
     a(f"<p><sub>{langs}</sub></p>\n")
+    repo = "https://github.com/cutetailbud/FastAIToken"
+    badges = [
+        (f"{repo}/actions/workflows/ci.yml", f"{repo}/actions/workflows/ci.yml/badge.svg", "CI"),
+        (f"{repo}/releases", "https://img.shields.io/github/v/release/cutetailbud/FastAIToken", "Release"),
+        ("./LICENSE", "https://img.shields.io/github/license/cutetailbud/FastAIToken", "License"),
+        ("./pricing.json", "https://img.shields.io/badge/pricing-JSON-blue", "pricing.json"),
+    ]
+    a("<p>\n" + "\n".join(f'  <a href="{h}"><img src="{s}" alt="{n}"></a>' for h, s, n in badges) + "\n</p>\n")
     a("</div>\n")
     a("<br>\n")
     a(t["intro"] + "\n")
@@ -175,6 +184,8 @@ def render(lc):
       "resp = client.chat.completions.create(\n    model=\"gpt-5.5\",\n"
       f"    messages=[{{\"role\": \"user\", \"content\": \"{t['code_hello']}\"}}],\n)\n"
       "print(resp.choices[0].message.content)\n```\n")
+    a("[examples/](./examples) · [pricing.json](./pricing.json) · [CHANGELOG](./CHANGELOG.md) · "
+      "[CONTRIBUTING](./CONTRIBUTING.md) · [SECURITY](./SECURITY.md) · [SUPPORT](./SUPPORT.md)\n")
 
     # ---------- Invoices / contact ----------
     a(f"## {t['inv_title']}\n")
@@ -189,9 +200,107 @@ def render(lc):
     return "\n".join(L) + "\n"
 
 
+def _num(s):
+    return None if s == "-" else float(s)
+
+
+def _pair(s):
+    """'discounted/list' -> list price (float) or None"""
+    return None if s == "-" else float(s.split("/")[1])
+
+
+def pricing():
+    """Machine-readable pricing (list prices, USD). Price paid = list price x group multiplier."""
+    groups = [
+        dict(id="openai-welfare", provider="openai", multiplier=0.06, tags=["lowest", "limited"]),
+        dict(id="openai-standard", provider="openai", multiplier=0.2, tags=["limited"]),
+        dict(id="openai-backup", provider="openai", multiplier=0.25, tags=["limited"]),
+        dict(id="openai-pro", provider="openai", multiplier=0.3, tags=["limited"]),
+        dict(id="openai-pro-enterprise", provider="openai", multiplier=0.5, tags=["exclusive", "sla"]),
+        dict(id="claude-max", provider="anthropic", multiplier=1.5, tags=["lowest"]),
+        dict(id="claude-max-enterprise", provider="anthropic", multiplier=1.9, tags=["exclusive", "sla"]),
+        dict(id="gemini-chat-coding", provider="google", multiplier=0.3, tags=[]),
+        dict(id="cn-models", provider="cn", multiplier=1, tags=["dynamic-discount"]),
+        dict(id="video", provider="video", multiplier=1, tags=[]),
+    ]
+    for g in groups:
+        g["vs_official_price"] = round(g["multiplier"] / RATE, 4)
+
+    def tok(model, provider, inp, out, cw, cr, **kw):
+        return dict(model=model, provider=provider, unit="USD/1M tokens",
+                    input=inp, output=out, cache_write=cw, cache_read=cr, **kw)
+
+    models = []
+    for m, c, i, o, w, r in OAI:
+        for name in m.split(" / ") if " / " in m else [m]:
+            name = name if name.startswith("gpt-") else "gpt-5.6-" + name
+            models.append(tok(name, "openai", _pair(i), _pair(o), _pair(w), _pair(r),
+                              context=None if c == "—" else c))
+    for m, s, i, o, w, r in CLAUDE:
+        models.append(tok(m, "anthropic", _pair(i), _pair(o), _pair(w), _pair(r),
+                          same_price=[] if s == "—" else [x.strip() for x in s.split("/")]))
+    for m, i, o, r in GEMINI:
+        models.append(tok(m, "google", _pair(i), _pair(o), None, _pair(r)))
+    for m, s, i, o, r in DEEPSEEK:
+        models.append(tok(m, "deepseek", _num(i), _num(o), None, _num(r),
+                          same_price=[x.strip() for x in s.split(",")] if s else [],
+                          peak="weekdays 09:00-12:00, 14:00-18:00 GMT+8 x2"))
+    for m, c, i, o, r in GLM:
+        models.append(tok(m, "zhipu", _num(i), _num(o), None, _num(r),
+                          condition={"lt": "input<32K", "ge": "input>=32K"}.get(c)))
+    models.append(tok("kimi-k3", "moonshot", 19.0, 95.0, None, 1.9))
+    models.append(tok("kimi-k3.1-pro", "moonshot", 13.0, 68.0, 13.0, 1.3, cache_write_1h=26.0))
+    models.append(tok("doubao-seed-2-1-pro", "bytedance", 6.0, 30.0, None, 1.2,
+                      same_price=["doubao-seed-2-1-pro-260915"]))
+    res = ["default", "480p", "720p", "768p", "1080p", "2k", "4k"]
+    for n, mid, *xs in VIDEO_SEC:
+        models.append(dict(model=mid.split(",")[0].strip(), name=n, provider="video", unit="USD/second",
+                           prices={k: _num(v) for k, v in zip(res, xs, strict=True) if v != "-"}))
+    for n, mid, *xs in VIDEO_TOK:
+        p = {}
+        for k, v in zip(["480p", "720p", "1080p", "4k"], xs, strict=True):
+            if v != "-":
+                ref, noref = v.split("/")
+                p[k] = dict(with_reference=float(ref), without_reference=float(noref))
+        models.append(dict(model=mid, name=n, provider="video", unit="USD/1M tokens", prices=p))
+    return dict(
+        website=URL,
+        note="List prices in USD. Price paid = list price x group multiplier. 1 CNY buys 1 USD of credit. "
+             "Live prices on the website prevail.",
+        assumed_usd_cny=RATE,
+        groups=groups,
+        models=models,
+    )
+
+
+def build():
+    """Return {relative path: file content} for every generated file."""
+    import json
+    files = {FILES[c]: render(c) for c in ORDER}
+    files["pricing.json"] = json.dumps(pricing(), ensure_ascii=False, indent=2) + "\n"
+    return files
+
+
 if __name__ == "__main__":
-    out = sys.argv[1] if len(sys.argv) > 1 else "."
-    for c in ORDER:
-        with open(os.path.join(out, FILES[c]), "w", encoding="utf-8", newline="\n") as f:
-            f.write(render(c))
-        print("wrote", FILES[c])
+    pos = [x for x in sys.argv[1:] if not x.startswith("--")]
+    out = pos[0] if pos else "."
+    check = "--check" in sys.argv
+    stale = []
+    for name, content in build().items():
+        path = os.path.join(out, name)
+        if check:
+            try:
+                with open(path, encoding="utf-8") as f:
+                    if f.read().replace("\r\n", "\n") != content:
+                        stale.append(name)
+            except FileNotFoundError:
+                stale.append(name)
+            continue
+        with open(path, "w", encoding="utf-8", newline="\n") as f:
+            f.write(content)
+        print("wrote", name)
+    if check:
+        if stale:
+            print("Out of date, run `python scripts/readme/gen.py .`:", ", ".join(stale))
+            sys.exit(1)
+        print("All generated files are up to date.")

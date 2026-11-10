@@ -1,0 +1,28 @@
+# FastAIToken
+
+> FastAIToken (https://www.fastaitoken.com/) is a one-stop API gateway for large language models and video generation models. One account and one API key give access to GPT, Claude, Gemini, Grok, DeepSeek, GLM, Kimi and Doubao, plus video models Seedance, MiniMax H3, Wan 3.0 and Veo 3.1. Top-ups convert 1 CNY to 1 USD of credit; usage is billed at list price x group multiplier. Chinese VAT special and general invoices are issued via support tickets; enterprise SLA lines and corporate bank transfers are available.
+
+Key facts:
+
+- Price paid = list price x group multiplier. Multipliers: OpenAI 0.06x-0.5x, Claude Max 1.5x-1.9x, Gemini 0.3x, Chinese models 1x, video 1x.
+- Because 1 CNY buys 1 USD of credit, the effective cost is roughly list price x multiplier / 7.1 of the official USD price (e.g. 0.3x is about 4.2%).
+- API is OpenAI-compatible: use the official OpenAI SDK with the base URL shown in the FastAIToken console.
+- Community: QQ group 1019537221.
+
+## Docs
+
+- [README (Chinese)](https://github.com/cutetailbud/FastAIToken/blob/master/README.md): full model and price tables
+- [README (English)](https://github.com/cutetailbud/FastAIToken/blob/master/README.en.md): same content in English
+- [pricing.json](https://github.com/cutetailbud/FastAIToken/blob/master/pricing.json): machine-readable list prices, groups and multipliers
+
+## Examples
+
+- [Python](https://github.com/cutetailbud/FastAIToken/blob/master/examples/python/chat.py): chat completion with the OpenAI SDK
+- [Node.js](https://github.com/cutetailbud/FastAIToken/blob/master/examples/node/chat.mjs): chat completion with the OpenAI SDK
+- [curl](https://github.com/cutetailbud/FastAIToken/blob/master/examples/curl/chat.sh): raw HTTP request
+
+## Optional
+
+- [Other languages](https://github.com/cutetailbud/FastAIToken#readme): Japanese, Korean, Russian, Kazakh, Vietnamese, Thai, Indonesian, Malay
+- [CHANGELOG](https://github.com/cutetailbud/FastAIToken/blob/master/CHANGELOG.md)
+- [SUPPORT](https://github.com/cutetailbud/FastAIToken/blob/master/SUPPORT.md)

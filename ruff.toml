@@ -1,0 +1,12 @@
+target-version = "py310"
+line-length = 130
+
+[lint]
+select = ["E", "F", "W", "B"]
+# data.py is imported with * on purpose; per-line ignores keep the generator compact
+ignore = ["E701", "E702", "E731"]
+
+[lint.per-file-ignores]
+"scripts/readme/gen.py" = ["F403", "F405"]
+"scripts/readme/i18n.py" = ["E501"]
+"scripts/readme/extra.py" = ["E501"]

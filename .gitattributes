@@ -1,0 +1,6 @@
+* text=auto eol=lf
+*.png binary
+
+# Generated files
+README*.md linguist-generated=true
+pricing.json linguist-generated=true

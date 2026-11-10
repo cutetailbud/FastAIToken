@@ -1,0 +1,24 @@
+name: 价格 / 模型信息有误 — Price or model info
+description: README 或 pricing.json 中的价格、模型、倍率与官网不一致 / Prices, models or multipliers differ from the website
+labels: [pricing]
+body:
+  - type: input
+    id: model
+    attributes:
+      label: 模型或分组 / Model or group
+      placeholder: gpt-5.5 / Claude Max 分组
+    validations:
+      required: true
+  - type: textarea
+    id: readme
+    attributes:
+      label: 仓库中写的 / What the repo says
+    validations:
+      required: true
+  - type: textarea
+    id: website
+    attributes:
+      label: 官网显示的 / What the website shows
+      description: 可附截图 / Screenshots welcome
+    validations:
+      required: true

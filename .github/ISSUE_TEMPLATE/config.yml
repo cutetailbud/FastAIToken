@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 官网 / Website
+    url: https://www.fastaitoken.com/
+    about: 充值、开票、账户问题请在官网后台提交工单 / Billing, invoices and account issues — open a ticket on the website
+  - name: 安全问题 / Security report
+    url: https://github.com/cutetailbud/FastAIToken/security/advisories/new
+    about: 请勿公开提交安全漏洞 / Please report vulnerabilities privately

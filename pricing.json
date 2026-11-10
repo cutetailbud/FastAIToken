@@ -1,0 +1,770 @@
+{
+  "website": "https://www.fastaitoken.com/",
+  "note": "List prices in USD. Price paid = list price x group multiplier. 1 CNY buys 1 USD of credit. Live prices on the website prevail.",
+  "assumed_usd_cny": 7.1,
+  "groups": [
+    {
+      "id": "openai-welfare",
+      "provider": "openai",
+      "multiplier": 0.06,
+      "tags": [
+        "lowest",
+        "limited"
+      ],
+      "vs_official_price": 0.0085
+    },
+    {
+      "id": "openai-standard",
+      "provider": "openai",
+      "multiplier": 0.2,
+      "tags": [
+        "limited"
+      ],
+      "vs_official_price": 0.0282
+    },
+    {
+      "id": "openai-backup",
+      "provider": "openai",
+      "multiplier": 0.25,
+      "tags": [
+        "limited"
+      ],
+      "vs_official_price": 0.0352
+    },
+    {
+      "id": "openai-pro",
+      "provider": "openai",
+      "multiplier": 0.3,
+      "tags": [
+        "limited"
+      ],
+      "vs_official_price": 0.0423
+    },
+    {
+      "id": "openai-pro-enterprise",
+      "provider": "openai",
+      "multiplier": 0.5,
+      "tags": [
+        "exclusive",
+        "sla"
+      ],
+      "vs_official_price": 0.0704
+    },
+    {
+      "id": "claude-max",
+      "provider": "anthropic",
+      "multiplier": 1.5,
+      "tags": [
+        "lowest"
+      ],
+      "vs_official_price": 0.2113
+    },
+    {
+      "id": "claude-max-enterprise",
+      "provider": "anthropic",
+      "multiplier": 1.9,
+      "tags": [
+        "exclusive",
+        "sla"
+      ],
+      "vs_official_price": 0.2676
+    },
+    {
+      "id": "gemini-chat-coding",
+      "provider": "google",
+      "multiplier": 0.3,
+      "tags": [],
+      "vs_official_price": 0.0423
+    },
+    {
+      "id": "cn-models",
+      "provider": "cn",
+      "multiplier": 1,
+      "tags": [
+        "dynamic-discount"
+      ],
+      "vs_official_price": 0.1408
+    },
+    {
+      "id": "video",
+      "provider": "video",
+      "multiplier": 1,
+      "tags": [],
+      "vs_official_price": 0.1408
+    }
+  ],
+  "models": [
+    {
+      "model": "gpt-5.4",
+      "provider": "openai",
+      "unit": "USD/1M tokens",
+      "input": 2.5,
+      "output": 15.0,
+      "cache_write": null,
+      "cache_read": 0.25,
+      "context": null
+    },
+    {
+      "model": "gpt-5.4-mini",
+      "provider": "openai",
+      "unit": "USD/1M tokens",
+      "input": 0.75,
+      "output": 4.5,
+      "cache_write": null,
+      "cache_read": 0.075,
+      "context": null
+    },
+    {
+      "model": "gpt-5.5",
+      "provider": "openai",
+      "unit": "USD/1M tokens",
+      "input": 5.0,
+      "output": 30.0,
+      "cache_write": null,
+      "cache_read": 0.5,
+      "context": "≤272K"
+    },
+    {
+      "model": "gpt-5.5",
+      "provider": "openai",
+      "unit": "USD/1M tokens",
+      "input": 10.0,
+      "output": 60.0,
+      "cache_write": null,
+      "cache_read": 1.0,
+      "context": ">272K"
+    },
+    {
+      "model": "gpt-5.6-luna",
+      "provider": "openai",
+      "unit": "USD/1M tokens",
+      "input": 2.0,
+      "output": 12.0,
+      "cache_write": 2.5,
+      "cache_read": 0.2,
+      "context": "≤272K"
+    },
+    {
+      "model": "gpt-5.6-terra",
+      "provider": "openai",
+      "unit": "USD/1M tokens",
+      "input": 2.0,
+      "output": 12.0,
+      "cache_write": 2.5,
+      "cache_read": 0.2,
+      "context": "≤272K"
+    },
+    {
+      "model": "gpt-5.6-luna",
+      "provider": "openai",
+      "unit": "USD/1M tokens",
+      "input": 4.0,
+      "output": 24.0,
+      "cache_write": 5.0,
+      "cache_read": 0.4,
+      "context": ">272K"
+    },
+    {
+      "model": "gpt-5.6-terra",
+      "provider": "openai",
+      "unit": "USD/1M tokens",
+      "input": 4.0,
+      "output": 24.0,
+      "cache_write": 5.0,
+      "cache_read": 0.4,
+      "context": ">272K"
+    },
+    {
+      "model": "gpt-5.6-sol",
+      "provider": "openai",
+      "unit": "USD/1M tokens",
+      "input": 5.0,
+      "output": 30.0,
+      "cache_write": 6.25,
+      "cache_read": 0.5,
+      "context": "≤272K"
+    },
+    {
+      "model": "gpt-5.6-sol",
+      "provider": "openai",
+      "unit": "USD/1M tokens",
+      "input": 10.0,
+      "output": 45.0,
+      "cache_write": 12.5,
+      "cache_read": 1.0,
+      "context": ">272K"
+    },
+    {
+      "model": "gpt-6-astra",
+      "provider": "openai",
+      "unit": "USD/1M tokens",
+      "input": 10.0,
+      "output": 50.0,
+      "cache_write": 12.5,
+      "cache_read": 1.0,
+      "context": "≤272K"
+    },
+    {
+      "model": "gpt-6-astra",
+      "provider": "openai",
+      "unit": "USD/1M tokens",
+      "input": 20.0,
+      "output": 75.0,
+      "cache_write": 25.0,
+      "cache_read": 2.0,
+      "context": ">272K"
+    },
+    {
+      "model": "gpt-6-sol",
+      "provider": "openai",
+      "unit": "USD/1M tokens",
+      "input": 2.0,
+      "output": 10.0,
+      "cache_write": 2.5,
+      "cache_read": 0.2,
+      "context": "≤272K"
+    },
+    {
+      "model": "gpt-6-sol",
+      "provider": "openai",
+      "unit": "USD/1M tokens",
+      "input": 4.0,
+      "output": 20.0,
+      "cache_write": 5.0,
+      "cache_read": 0.4,
+      "context": ">272K"
+    },
+    {
+      "model": "gpt-6.1-sol",
+      "provider": "openai",
+      "unit": "USD/1M tokens",
+      "input": 2.0,
+      "output": 10.0,
+      "cache_write": 2.5,
+      "cache_read": 0.1,
+      "context": "≤272K"
+    },
+    {
+      "model": "gpt-6.1-sol",
+      "provider": "openai",
+      "unit": "USD/1M tokens",
+      "input": 4.0,
+      "output": 20.0,
+      "cache_write": 5.0,
+      "cache_read": 0.2,
+      "context": ">272K"
+    },
+    {
+      "model": "gpt-6.1-terra",
+      "provider": "openai",
+      "unit": "USD/1M tokens",
+      "input": 1.0,
+      "output": 5.0,
+      "cache_write": 1.25,
+      "cache_read": 0.05,
+      "context": null
+    },
+    {
+      "model": "claude-fable-5",
+      "provider": "anthropic",
+      "unit": "USD/1M tokens",
+      "input": 10.0,
+      "output": 50.0,
+      "cache_write": 12.5,
+      "cache_read": 1.0,
+      "same_price": [
+        "claude-fable-5-1"
+      ]
+    },
+    {
+      "model": "claude-opus-5-5",
+      "provider": "anthropic",
+      "unit": "USD/1M tokens",
+      "input": 4.0,
+      "output": 20.0,
+      "cache_write": 5.0,
+      "cache_read": 0.2,
+      "same_price": []
+    },
+    {
+      "model": "claude-opus-4-6",
+      "provider": "anthropic",
+      "unit": "USD/1M tokens",
+      "input": 5.0,
+      "output": 25.0,
+      "cache_write": 6.25,
+      "cache_read": 0.5,
+      "same_price": [
+        "claude-opus-4-7",
+        "4-8",
+        "5"
+      ]
+    },
+    {
+      "model": "claude-sonnet-5",
+      "provider": "anthropic",
+      "unit": "USD/1M tokens",
+      "input": 2.0,
+      "output": 10.0,
+      "cache_write": 2.5,
+      "cache_read": 0.2,
+      "same_price": [
+        "claude-sonnet-5-5"
+      ]
+    },
+    {
+      "model": "claude-sonnet-4-5",
+      "provider": "anthropic",
+      "unit": "USD/1M tokens",
+      "input": 3.0,
+      "output": 15.0,
+      "cache_write": 3.75,
+      "cache_read": 0.3,
+      "same_price": [
+        "claude-sonnet-4-6"
+      ]
+    },
+    {
+      "model": "claude-haiku-5-5",
+      "provider": "anthropic",
+      "unit": "USD/1M tokens",
+      "input": 0.1,
+      "output": 0.5,
+      "cache_write": 0.125,
+      "cache_read": 0.01,
+      "same_price": []
+    },
+    {
+      "model": "claude-haiku-4-5",
+      "provider": "anthropic",
+      "unit": "USD/1M tokens",
+      "input": 0.25,
+      "output": 1.25,
+      "cache_write": 0.3,
+      "cache_read": 0.03,
+      "same_price": [
+        "claude-haiku-4-6"
+      ]
+    },
+    {
+      "model": "gemini-3.8-flash",
+      "provider": "google",
+      "unit": "USD/1M tokens",
+      "input": 0.75,
+      "output": 3.75,
+      "cache_write": null,
+      "cache_read": 0.075
+    },
+    {
+      "model": "gemini-4-argon",
+      "provider": "google",
+      "unit": "USD/1M tokens",
+      "input": 2.0,
+      "output": 10.0,
+      "cache_write": null,
+      "cache_read": 0.1
+    },
+    {
+      "model": "deepseek-v4-flash",
+      "provider": "deepseek",
+      "unit": "USD/1M tokens",
+      "input": 1.05,
+      "output": 3.15,
+      "cache_write": null,
+      "cache_read": 0.035,
+      "same_price": [],
+      "peak": "weekdays 09:00-12:00, 14:00-18:00 GMT+8 x2"
+    },
+    {
+      "model": "deepseek-v4-pro",
+      "provider": "deepseek",
+      "unit": "USD/1M tokens",
+      "input": 3.15,
+      "output": 9.45,
+      "cache_write": null,
+      "cache_read": 0.105,
+      "same_price": [],
+      "peak": "weekdays 09:00-12:00, 14:00-18:00 GMT+8 x2"
+    },
+    {
+      "model": "deepseek-v4.1-flash",
+      "provider": "deepseek",
+      "unit": "USD/1M tokens",
+      "input": 0.7,
+      "output": 2.8,
+      "cache_write": null,
+      "cache_read": 0.014,
+      "same_price": [
+        "deepseek-v4.1-flash-1017",
+        "deepseek/deepseek-flash"
+      ],
+      "peak": "weekdays 09:00-12:00, 14:00-18:00 GMT+8 x2"
+    },
+    {
+      "model": "glm-5",
+      "provider": "zhipu",
+      "unit": "USD/1M tokens",
+      "input": 4.0,
+      "output": 18.0,
+      "cache_write": null,
+      "cache_read": 1.0,
+      "condition": "input<32K"
+    },
+    {
+      "model": "glm-5",
+      "provider": "zhipu",
+      "unit": "USD/1M tokens",
+      "input": 6.0,
+      "output": 22.0,
+      "cache_write": null,
+      "cache_read": 1.5,
+      "condition": "input>=32K"
+    },
+    {
+      "model": "glm-5-turbo",
+      "provider": "zhipu",
+      "unit": "USD/1M tokens",
+      "input": 5.0,
+      "output": 22.0,
+      "cache_write": null,
+      "cache_read": 1.2,
+      "condition": "input<32K"
+    },
+    {
+      "model": "glm-5-turbo",
+      "provider": "zhipu",
+      "unit": "USD/1M tokens",
+      "input": 7.0,
+      "output": 26.0,
+      "cache_write": null,
+      "cache_read": 1.8,
+      "condition": "input>=32K"
+    },
+    {
+      "model": "glm-5.1",
+      "provider": "zhipu",
+      "unit": "USD/1M tokens",
+      "input": 3.6,
+      "output": 14.4,
+      "cache_write": null,
+      "cache_read": 0.78,
+      "condition": "input<32K"
+    },
+    {
+      "model": "glm-5.1",
+      "provider": "zhipu",
+      "unit": "USD/1M tokens",
+      "input": 4.8,
+      "output": 16.8,
+      "cache_write": null,
+      "cache_read": 1.2,
+      "condition": "input>=32K"
+    },
+    {
+      "model": "glm-5.2",
+      "provider": "zhipu",
+      "unit": "USD/1M tokens",
+      "input": 5.6,
+      "output": 19.6,
+      "cache_write": null,
+      "cache_read": 1.4,
+      "condition": null
+    },
+    {
+      "model": "glm-5.3",
+      "provider": "zhipu",
+      "unit": "USD/1M tokens",
+      "input": 6.4,
+      "output": 22.4,
+      "cache_write": null,
+      "cache_read": 1.6,
+      "condition": null
+    },
+    {
+      "model": "glm-5.3-flash",
+      "provider": "zhipu",
+      "unit": "USD/1M tokens",
+      "input": 0.64,
+      "output": 2.24,
+      "cache_write": null,
+      "cache_read": 0.184,
+      "condition": null
+    },
+    {
+      "model": "kimi-k3",
+      "provider": "moonshot",
+      "unit": "USD/1M tokens",
+      "input": 19.0,
+      "output": 95.0,
+      "cache_write": null,
+      "cache_read": 1.9
+    },
+    {
+      "model": "kimi-k3.1-pro",
+      "provider": "moonshot",
+      "unit": "USD/1M tokens",
+      "input": 13.0,
+      "output": 68.0,
+      "cache_write": 13.0,
+      "cache_read": 1.3,
+      "cache_write_1h": 26.0
+    },
+    {
+      "model": "doubao-seed-2-1-pro",
+      "provider": "bytedance",
+      "unit": "USD/1M tokens",
+      "input": 6.0,
+      "output": 30.0,
+      "cache_write": null,
+      "cache_read": 1.2,
+      "same_price": [
+        "doubao-seed-2-1-pro-260915"
+      ]
+    },
+    {
+      "model": "hseedance-2.0-lite-time",
+      "name": "H-Seedance 2.0 Lite",
+      "provider": "video",
+      "unit": "USD/second",
+      "prices": {
+        "480p": 0.297,
+        "768p": 0.375,
+        "1080p": 0.5,
+        "2k": 0.625,
+        "4k": 0.75
+      }
+    },
+    {
+      "model": "hseedance-2.0-pro-mini-time",
+      "name": "H-Seedance 2.0 Pro Mini",
+      "provider": "video",
+      "unit": "USD/second",
+      "prices": {
+        "480p": 0.209,
+        "720p": 0.412,
+        "768p": 0.412,
+        "1080p": 0.9,
+        "2k": 0.99,
+        "4k": 1.089
+      }
+    },
+    {
+      "model": "hseedance-2.0-pro-fast-time",
+      "name": "H-Seedance 2.0 Pro Fast",
+      "provider": "video",
+      "unit": "USD/second",
+      "prices": {
+        "480p": 0.335,
+        "720p": 0.645,
+        "768p": 0.645,
+        "1080p": 1.4,
+        "2k": 1.54,
+        "4k": 1.694
+      }
+    },
+    {
+      "model": "hseedance-2.0-pro-time",
+      "name": "H-Seedance 2.0 Pro",
+      "provider": "video",
+      "unit": "USD/second",
+      "prices": {
+        "480p": 0.416,
+        "720p": 0.795,
+        "768p": 0.795,
+        "1080p": 1.73,
+        "2k": 4.3,
+        "4k": 4.9
+      }
+    },
+    {
+      "model": "hseedance-2.5-pro-time",
+      "name": "H-Seedance 2.5 Pro",
+      "provider": "video",
+      "unit": "USD/second",
+      "prices": {
+        "480p": 0.606,
+        "720p": 1.188,
+        "768p": 1.188,
+        "1080p": 2.587,
+        "2k": 6.37,
+        "4k": 7.007
+      }
+    },
+    {
+      "model": "seedance-2.0-fast-time",
+      "name": "Seedance 2.0 Fast / Seedance 2.0",
+      "provider": "video",
+      "unit": "USD/second",
+      "prices": {
+        "480p": 0.45,
+        "720p": 0.59,
+        "1080p": 0.7
+      }
+    },
+    {
+      "model": "minimax-h3-time",
+      "name": "MiniMax H3",
+      "provider": "video",
+      "unit": "USD/second",
+      "prices": {
+        "768p": 0.07,
+        "1080p": 0.08
+      }
+    },
+    {
+      "model": "wan-3.0-time",
+      "name": "Wan 3.0 Video",
+      "provider": "video",
+      "unit": "USD/second",
+      "prices": {
+        "480p": 0.3,
+        "720p": 0.6,
+        "1080p": 1.3
+      }
+    },
+    {
+      "model": "veo3.1-time",
+      "name": "Veo 3.1",
+      "provider": "video",
+      "unit": "USD/second",
+      "prices": {
+        "default": 0.14
+      }
+    },
+    {
+      "model": "auto-video-hd",
+      "name": "auto-video-hd",
+      "provider": "video",
+      "unit": "USD/second",
+      "prices": {
+        "720p": 0.0001,
+        "1080p": 0.0001,
+        "2k": 0.0001
+      }
+    },
+    {
+      "model": "seedance-2.0-mini-token",
+      "name": "Seedance 2.0 Mini",
+      "provider": "video",
+      "unit": "USD/1M tokens",
+      "prices": {
+        "480p": {
+          "with_reference": 12.6,
+          "without_reference": 20.7
+        },
+        "720p": {
+          "with_reference": 12.6,
+          "without_reference": 20.7
+        },
+        "1080p": {
+          "with_reference": 13.95,
+          "without_reference": 22.95
+        }
+      }
+    },
+    {
+      "model": "seedance-2.0-fast-token",
+      "name": "Seedance 2.0 Fast",
+      "provider": "video",
+      "unit": "USD/1M tokens",
+      "prices": {
+        "480p": {
+          "with_reference": 19.8,
+          "without_reference": 33.3
+        },
+        "720p": {
+          "with_reference": 19.8,
+          "without_reference": 33.3
+        },
+        "1080p": {
+          "with_reference": 22.05,
+          "without_reference": 37.8
+        }
+      }
+    },
+    {
+      "model": "seedance-2.0-pro-token",
+      "name": "Seedance 2.0 Pro",
+      "provider": "video",
+      "unit": "USD/1M tokens",
+      "prices": {
+        "480p": {
+          "with_reference": 25.2,
+          "without_reference": 41.4
+        },
+        "720p": {
+          "with_reference": 25.2,
+          "without_reference": 41.4
+        },
+        "1080p": {
+          "with_reference": 27.9,
+          "without_reference": 45.9
+        },
+        "4k": {
+          "with_reference": 14.4,
+          "without_reference": 23.4
+        }
+      }
+    },
+    {
+      "model": "seedance-2.0-token",
+      "name": "Seedance 2.0",
+      "provider": "video",
+      "unit": "USD/1M tokens",
+      "prices": {
+        "480p": {
+          "with_reference": 28.0,
+          "without_reference": 46.0
+        },
+        "720p": {
+          "with_reference": 28.0,
+          "without_reference": 46.0
+        },
+        "1080p": {
+          "with_reference": 31.0,
+          "without_reference": 51.0
+        },
+        "4k": {
+          "with_reference": 16.0,
+          "without_reference": 26.0
+        }
+      }
+    },
+    {
+      "model": "seedance-2.5-pro-token",
+      "name": "Seedance 2.5 Pro",
+      "provider": "video",
+      "unit": "USD/1M tokens",
+      "prices": {
+        "720p": {
+          "with_reference": 37.8,
+          "without_reference": 63.0
+        },
+        "1080p": {
+          "with_reference": 41.85,
+          "without_reference": 69.3
+        }
+      }
+    },
+    {
+      "model": "seedance-2.5-token",
+      "name": "Seedance 2.5",
+      "provider": "video",
+      "unit": "USD/1M tokens",
+      "prices": {
+        "480p": {
+          "with_reference": 42.0,
+          "without_reference": 70.0
+        },
+        "720p": {
+          "with_reference": 42.0,
+          "without_reference": 70.0
+        },
+        "1080p": {
+          "with_reference": 33.12,
+          "without_reference": 55.44
+        }
+      }
+    }
+  ]
+}

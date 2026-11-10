@@ -1,0 +1,26 @@
+name: 问题反馈 — Bug report
+description: 文档错误、示例无法运行、翻译问题等 / Docs errors, broken examples, translation issues
+labels: [bug]
+body:
+  - type: dropdown
+    id: area
+    attributes:
+      label: 范围 / Area
+      options:
+        - README / 翻译 translation
+        - examples 示例代码
+        - scripts / CI
+        - 其他 / Other
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: 问题描述 / What happened
+      description: 请勿粘贴 API Key / Never paste your API key
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: 期望结果 / Expected
