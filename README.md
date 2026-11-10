@@ -2,6 +2,12 @@
   <a href="https://www.fastaitoken.com/"><img src="./sponsor-fastai.png" alt="FastAIToken" width="600"></a>
 </p>
 
+<p align="center">
+
+**简体中文** | [English](./README.en.md) | [日本語](./README.ja.md) | [한국어](./README.ko.md) | [Русский](./README.ru.md) | [Қазақша](./README.kk.md) | [Tiếng Việt](./README.vi.md) | [ภาษาไทย](./README.th.md) | [Bahasa Indonesia](./README.id.md) | [Bahasa Melayu](./README.ms.md)
+
+</p>
+
 # FastAIToken
 
 > 一站式大模型 API 聚合平台 —— **[https://www.fastaitoken.com/](https://www.fastaitoken.com/)**
@@ -23,19 +29,40 @@ FastAIToken 聚合了国内外主流大语言模型与视频生成模型，一�
 
 以下价格单位均为 **美元 / 每 1M tokens**（视频按秒计费的除外），表中格式为 `实付价（标价）`。价格可能随时调整，**请以官网实时价格为准**。
 
+💡 **相当于官方价几折？** 官方按美元计价，而本平台 **1 元 = 1 美元额度**，消费时再乘以分组倍率。按 1 美元 ≈ 7.1 元估算：
+
+**实际人民币成本 = 官方价（美元）× 分组倍率 × 1 元 ≈ 官方价 × 倍率 ÷ 7.1**
+
+例如 0.3x 分组：0.3 ÷ 7.1 ≈ 4.2%，约 **0.42 折**。
+
+### 各分组折扣一览
+
+| 分组 | 倍率 | 相当于官方价 |
+| --- | --- | --- |
+| OpenAI 福利分组 | 0.06x | 约 0.08 折（0.85%） |
+| OpenAI 普通分组 | 0.2x | 约 0.28 折（2.8%） |
+| OpenAI 备用渠道 | 0.25x | 约 0.35 折（3.5%） |
+| OpenAI Pro 线路 | 0.3x | 约 0.42 折（4.2%） |
+| OpenAI Pro 企业线路 | 0.5x | 约 0.70 折（7.0%） |
+| Claude Max 分组 | 1.5x | 约 2.11 折（21.1%） |
+| Claude Max 企业线路 | 1.9x | 约 2.68 折（26.8%） |
+| Gemini Chat / Coding | 0.3x | 约 0.42 折（4.2%） |
+| 国模分组 - Deepseek / Glm（含 Kimi / 豆包） | 1x | 约 1.41 折（14.1%） |
+| 视频生成分组 - seedance/h3 | 1x | 约 1.41 折（14.1%） |
+
 ---
 
 ## 🤖 OpenAI ChatGPT
 
 共 10 个模型，5 个分组：
 
-| 分组 | 倍率 | 标签 |
-| --- | --- | --- |
-| OpenAI 福利分组 | 0.06x | 最低 · 限时 |
-| OpenAI 普通分组 | 0.2x | 限时 |
-| OpenAI 备用渠道 | 0.25x | 限时 |
-| OpenAI Pro 线路 | 0.3x | 限时 |
-| OpenAI Pro 企业线路 | 0.5x | 专属 · SLA |
+| 分组 | 倍率 | 相当于官方价 | 标签 |
+| --- | --- | --- | --- |
+| OpenAI 福利分组 | 0.06x | 约 0.08 折（0.85%） | 最低 · 限时 |
+| OpenAI 普通分组 | 0.2x | 约 0.28 折（2.8%） | 限时 |
+| OpenAI 备用渠道 | 0.25x | 约 0.35 折（3.5%） | 限时 |
+| OpenAI Pro 线路 | 0.3x | 约 0.42 折（4.2%） | 限时 |
+| OpenAI Pro 企业线路 | 0.5x | 约 0.70 折（7.0%） | 专属 · SLA |
 
 > gpt-5.6-luna 采用 Terra 模型，并按 terra 计费（与 gpt-5.6-terra 同价）。
 
@@ -61,14 +88,14 @@ FastAIToken 聚合了国内外主流大语言模型与视频生成模型，一�
 
 ---
 
-## 🟠 Claude Max（Anthropic）
+## 🟠 Claude Max (Anthropic)
 
 官方 MAX 套餐满血渠道，共 14 个模型，2 个分组：
 
-| 分组 | 倍率 | 标签 |
-| --- | --- | --- |
-| Claude Max 分组 | 1.5x | 最低 |
-| Claude Max 企业线路 | 1.9x | 专属 · SLA |
+| 分组 | 倍率 | 相当于官方价 | 标签 |
+| --- | --- | --- | --- |
+| Claude Max 分组 | 1.5x | 约 2.11 折（21.1%） | 最低 |
+| Claude Max 企业线路 | 1.9x | 约 2.68 折（26.8%） | 专属 · SLA |
 
 以下按「Claude Max 分组 1.5x」折算：
 
@@ -86,7 +113,7 @@ FastAIToken 聚合了国内外主流大语言模型与视频生成模型，一�
 
 ---
 
-## 🔷 Gemini（Google）
+## 🔷 Gemini (Google)
 
 支持 Gemini 3.8 Flash / Gemini 4 Argon，分组「Gemini Chat / Coding [argon4 上新]」，倍率 **0.3x**：
 
@@ -109,7 +136,7 @@ FastAIToken 聚合了国内外主流大语言模型与视频生成模型，一�
 | --- | --- | --- | --- |
 | deepseek-v4-flash | $1.05 | $3.15 | $0.035 |
 | deepseek-v4-pro | $3.15 | $9.45 | $0.105 |
-| deepseek-v4.1-flash（同价：deepseek-v4.1-flash-1017、deepseek/deepseek-flash） | $0.70 | $2.80 | $0.014 |
+| deepseek-v4.1-flash (同价: deepseek-v4.1-flash-1017, deepseek/deepseek-flash) | $0.70 | $2.80 | $0.014 |
 
 ### 智谱 GLM
 
@@ -130,13 +157,13 @@ FastAIToken 聚合了国内外主流大语言模型与视频生成模型，一�
 | 模型 | 输入 | 输出 | 缓存写入 | 缓存读取 |
 | --- | --- | --- | --- | --- |
 | kimi-k3 | $19.00 | $95.00 | — | $1.90 |
-| kimi-k3.1-pro | $13.00 | $68.00 | $13.00（1 小时：$26.00） | $1.30 |
+| kimi-k3.1-pro | $13.00 | $68.00 | $13.00 (1 小时: $26.00) | $1.30 |
 
-### 豆包 Seed
+### 豆包 Seed（字节跳动）
 
 | 模型 | 输入 | 输出 | 缓存读取 |
 | --- | --- | --- | --- |
-| doubao-seed-2-1-pro（同价：doubao-seed-2-1-pro-260915） | $6.00 | $30.00 | $1.20 |
+| doubao-seed-2-1-pro (同价: doubao-seed-2-1-pro-260915) | $6.00 | $30.00 | $1.20 |
 
 ---
 
@@ -157,7 +184,7 @@ FastAIToken 聚合了国内外主流大语言模型与视频生成模型，一�
 | MiniMax H3 | minimax-h3-time | — | — | — | $0.07 | $0.08 | — | — |
 | Wan 3.0 Video | wan-3.0-time | — | $0.30 | $0.60 | — | $1.30 | — | — |
 | Veo 3.1 | veo3.1-time | $0.14 | — | — | — | — | — | — |
-| auto-video-hd（同价：ll2-auto-hd） | auto-video-hd | — | — | $0.0001 | — | $0.0001 | $0.0001 | — |
+| auto-video-hd | auto-video-hd, ll2-auto-hd | — | — | $0.0001 | — | $0.0001 | $0.0001 | — |
 
 ### 按 token 计费（美元 / 每 1M tokens）
 
@@ -185,7 +212,7 @@ FastAIToken 聚合了国内外主流大语言模型与视频生成模型，一�
 from openai import OpenAI
 
 client = OpenAI(
-    api_key="sk-xxxxxxxx",            # 在 FastAIToken 控制台创建
+    api_key="sk-xxxxxxxx",  # 在 FastAIToken 控制台创建
     base_url="<控制台提供的 Base URL>",
 )
 
@@ -204,7 +231,7 @@ print(resp.choices[0].message.content)
 
 ## 📮 联系我们
 
-官网：[https://www.fastaitoken.com/](https://www.fastaitoken.com/)
+官网: [https://www.fastaitoken.com/](https://www.fastaitoken.com/)
 
 ---
 
