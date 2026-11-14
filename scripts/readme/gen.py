@@ -1,4 +1,4 @@
-"""Generate the multilingual READMEs.
+"""Generate the multilingual READMEs, pricing.json and the wiki pages (wiki/).
 
 Usage (from the repo root):
     python scripts/readme/gen.py .
@@ -10,7 +10,7 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from data import *
 from i18n import T, ORDER
-from extra import E, RATE, disc, pct
+from extra import E, RATE, cn_range, disc, pct, ratio
 
 URL = "https://www.fastaitoken.com/"
 QQ_GROUP = "1019537221"
@@ -48,6 +48,38 @@ def table(head, rows, align=None):
     out = [row(head), row([sep[x] for x in align])]
     out += [row(r) for r in rows]
     return "\n".join(out) + "\n"
+
+
+def cn_rows():
+    """(model, cond, in, out, cache read) for every Chinese model row, in table order."""
+    rows = [(m, None, i, o, r) for m, _, _, i, o, _, r in DEEPSEEK]
+    rows += [(m, c, i, o, r) for m, c, i, o, _, r in GLM]
+    rows += [(m, None, i, o, r) for m, i, o, _, _, r in KIMI]
+    rows += [(m, None, i, o, r) for m, _, i, o, _, r in DOUBAO]
+    return rows
+
+
+def cn_ratios(m, c, i, o, r):
+    """{'input', 'output', 'cache_read'}: list price / official CNY price (cache read omitted if unknown)."""
+    oi, oo, orr = OFFICIAL_CNY[(m, c)]
+    out = dict(input=float(i) / float(oi), output=float(o) / float(oo))
+    if orr is not None and r != "-":
+        out["cache_read"] = float(r) / float(orr)
+    return {k: round(v, 4) for k, v in out.items()}
+
+
+def cn_span():
+    """(lowest, highest) output-price ratio over all Chinese models."""
+    xs = [cn_ratios(*x)["output"] for x in cn_rows()]
+    return min(xs), max(xs)
+
+
+def cn_disc(lc, t, m, c, i, o, r):
+    x = cn_ratios(m, c, i, o, r)
+    if len(set(x.values())) == 1:
+        return ratio(lc, x["output"])
+    name = dict(input=t["c_in"], output=t["c_out"], cache_read=t["c_cr"])
+    return "<br>".join(f"{name[k]} {ratio(lc, v)}" for k, v in x.items())
 
 
 def render(lc):
@@ -92,9 +124,11 @@ def render(lc):
     a(t["disc_explain"].replace("💡 ", "").format(
         rate=RATE, ex_pct=pct(0.3), ex_zhe=f"{0.3 / RATE * 10:.2f} 折") + "\n")
     a(f"### {t['sum_title']}\n")
-    a(table([t["c_group"], t["c_mult"], t["c_disc"]], [[n, f"{m}x", D(m)] for n, m in [
-        (G["oai_welfare"], 0.06), (G["oai_std"], 0.2), (G["oai_backup"], 0.25), (G["oai_pro"], 0.3),
-        (G["oai_ent"], 0.5), (G["cl_max"], 1.5), (G["cl_ent"], 1.9), (t["gem"], 0.3), (t["cn"], 1), (t["vid"], 1)]]))
+    cn_cell = cn_range(lc, *cn_span())
+    a(table([t["c_group"], t["c_mult"], t["c_disc"]], [[n, f"{m}x", cn_cell if r is None else disc(lc, m, r)] for n, m, r in [
+        (G["oai_welfare"], 0.06, RATE), (G["oai_std"], 0.2, RATE), (G["oai_backup"], 0.25, RATE),
+        (G["oai_pro"], 0.3, RATE), (G["oai_ent"], 0.5, RATE), (G["cl_max"], 1.5, RATE), (G["cl_ent"], 1.9, RATE),
+        (t["gem"], 0.3, RATE), (t["cn"], 1, None), (t["vid"], 1, RATE)]]))
 
     gh = [t["c_group"], t["c_mult"], t["c_disc"], t["c_tags"]]
     ga = "lrrl"
@@ -136,25 +170,27 @@ def render(lc):
     # ---------- Chinese models ----------
     a(f"## {t['cn_title']}\n")
     a(t["cn_desc"] + "\n")
+    a(t["cn_fx"].format(date=OFFICIAL_AS_OF) + "\n")
     a("### DeepSeek\n")
-    a(f"> {t['ds_peak']}\n")
-    a(table([t["c_model"], t["c_in"], t["c_out"], t["c_cr"]],
-            [[code(m) + (f"<br><sub>{t['same']}: {s}</sub>" if s else ""), d(i), d(o), d(r)]
-             for m, s, i, o, r in DEEPSEEK]))
+    colon = "：" if lc in ("zh", "ja") else ": "
+    a(f"> {t['ds_peak']}{colon}" + ", ".join(code(m) for m, _, pk, *_ in DEEPSEEK if pk) + "\n")
+    cnh = [t["c_model"], t["c_in"], t["c_out"], t["c_cw"], t["c_cr"], t["c_disc"]]
+    a(table(cnh,
+            [[code(m) + (f"<br><sub>{t['same']}: {s}</sub>" if s else ""), d(i), d(o), d(w), d(r),
+              cn_disc(lc, t, m, None, i, o, r)] for m, s, _, i, o, w, r in DEEPSEEK]))
     a(f"### {t['glm_title']}\n")
     cond = {"lt": t["in_lt32"], "ge": t["in_ge32"], None: "—"}
-    a(table([t["c_model"], t["c_cond"], t["c_in"], t["c_out"], t["c_cr"]],
-            [[code(m), cond[c], d(i), d(o), d(r)] for m, c, i, o, r in GLM], "lcrrr"))
+    a(table(cnh[:1] + [t["c_cond"]] + cnh[1:],
+            [[code(m), cond[c], d(i), d(o), d(w), d(r), cn_disc(lc, t, m, c, i, o, r)]
+             for m, c, i, o, w, r in GLM], "lcrrrrr"))
     a(f"### {t['kimi_title']}\n")
-    a(table([t["c_model"], t["c_in"], t["c_out"], t["c_cw"], t["c_cr"]], [
-        [code("kimi-k3"), "$19.00", "$95.00", "—", "$1.90"],
-        [code("kimi-k3.1-pro"), "$13.00", "$68.00", f"$13.00<br><sub>{t['h1']}: $26.00</sub>", "$1.30"],
-    ]))
+    a(table(cnh,
+            [[code(m), d(i), d(o), d(w) + f"<br><sub>{t['h1']}: {d(w1)}</sub>", d(r),
+              cn_disc(lc, t, m, None, i, o, r)] for m, i, o, w, w1, r in KIMI]))
     a(f"### {t['doubao_title']}\n")
-    a(table([t["c_model"], t["c_in"], t["c_out"], t["c_cr"]], [
-        [code("doubao-seed-2-1-pro") + f"<br><sub>{t['same']}: doubao-seed-2-1-pro-260915</sub>",
-         "$6.00", "$30.00", "$1.20"],
-    ]))
+    a(table(cnh,
+            [[code(m) + (f"<br><sub>{t['same']}: {s}</sub>" if s else ""), d(i), d(o), d(w), d(r),
+              cn_disc(lc, t, m, None, i, o, r)] for m, s, i, o, w, r in DOUBAO]))
 
     # ---------- Video ----------
     a(f"## {t['video_title']}\n")
@@ -225,6 +261,9 @@ def pricing():
     ]
     for g in groups:
         g["vs_official_price"] = round(g["multiplier"] / RATE, 4)
+        if g["id"] == "cn-models":  # priced in CNY: compared per model with the official CNY price
+            g["vs_official_price"] = None
+            g["vs_official_price_range"] = list(cn_span())
 
     def tok(model, provider, inp, out, cw, cr, **kw):
         return dict(model=model, provider=provider, unit="USD/1M tokens",
@@ -241,17 +280,28 @@ def pricing():
                           same_price=[] if s == "—" else [x.strip() for x in s.split("/")]))
     for m, i, o, r in GEMINI:
         models.append(tok(m, "google", _pair(i), _pair(o), None, _pair(r)))
-    for m, s, i, o, r in DEEPSEEK:
-        models.append(tok(m, "deepseek", _num(i), _num(o), None, _num(r),
-                          same_price=[x.strip() for x in s.split(",")] if s else [],
-                          peak="weekdays 09:00-12:00, 14:00-18:00 GMT+8 x2"))
-    for m, c, i, o, r in GLM:
-        models.append(tok(m, "zhipu", _num(i), _num(o), None, _num(r),
+    def aliases(s):
+        return [x.strip() for x in s.split(",")] if s else []
+
+    for m, s, pk, i, o, w, r in DEEPSEEK:
+        models.append(tok(m, "deepseek" if m.startswith("deepseek") else "tencent",
+                          _num(i), _num(o), _num(w), _num(r), same_price=aliases(s),
+                          peak="weekdays 09:00-12:00, 14:00-18:00 GMT+8 x2" if pk else None))
+    for m, c, i, o, w, r in GLM:
+        models.append(tok(m, "zhipu", _num(i), _num(o), _num(w), _num(r),
                           condition={"lt": "input<32K", "ge": "input>=32K"}.get(c)))
-    models.append(tok("kimi-k3", "moonshot", 19.0, 95.0, None, 1.9))
-    models.append(tok("kimi-k3.1-pro", "moonshot", 13.0, 68.0, 13.0, 1.3, cache_write_1h=26.0))
-    models.append(tok("doubao-seed-2-1-pro", "bytedance", 6.0, 30.0, None, 1.2,
-                      same_price=["doubao-seed-2-1-pro-260915"]))
+    for m, i, o, w, w1, r in KIMI:
+        models.append(tok(m, "moonshot", _num(i), _num(o), _num(w), _num(r), cache_write_1h=_num(w1)))
+    for m, s, i, o, w, r in DOUBAO:
+        models.append(tok(m, "bytedance", _num(i), _num(o), _num(w), _num(r), same_price=aliases(s)))
+    for x in models:
+        for key in OFFICIAL_CNY:
+            if key[0] == x["model"] and (key[1] is None or x.get("condition") ==
+                                         {"lt": "input<32K", "ge": "input>=32K"}[key[1]]):
+                oi, oo, orr = OFFICIAL_CNY[key]
+                x["official_cny"] = dict(input=float(oi), output=float(oo), cache_read=_num(orr or "-"))
+                x["vs_official"] = cn_ratios(key[0], key[1], x["input"], x["output"],
+                                             "-" if x["cache_read"] is None else x["cache_read"])
     res = ["default", "480p", "720p", "768p", "1080p", "2k", "4k"]
     for n, mid, *xs in VIDEO_SEC:
         models.append(dict(model=mid.split(",")[0].strip(), name=n, provider="video", unit="USD/second",
@@ -266,7 +316,8 @@ def pricing():
     return dict(
         website=URL,
         note="List prices in USD. Price paid = list price x group multiplier. 1 CNY buys 1 USD of credit. "
-             "Live prices on the website prevail.",
+             "Chinese models are priced in CNY, so there is no exchange-rate gap: official_cny and vs_official "
+             "(list price / official CNY price) are given per model. Live prices on the website prevail.",
         assumed_usd_cny=RATE,
         groups=groups,
         models=models,
@@ -278,6 +329,8 @@ def build():
     import json
     files = {FILES[c]: render(c) for c in ORDER}
     files["pricing.json"] = json.dumps(pricing(), ensure_ascii=False, indent=2) + "\n"
+    from wiki import pages
+    files.update(pages())
     return files
 
 
@@ -296,6 +349,7 @@ if __name__ == "__main__":
             except FileNotFoundError:
                 stale.append(name)
             continue
+        os.makedirs(os.path.dirname(path), exist_ok=True)
         with open(path, "w", encoding="utf-8", newline="\n") as f:
             f.write(content)
         print("wrote", name)

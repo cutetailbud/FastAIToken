@@ -32,25 +32,63 @@ GEMINI = [
     ("gemini-4-argon", "0.60/2.00", "3.00/10.00", "0.03/0.10"),
 ]
 
-# (model, same-price aliases or None, in, out, cache read)
+# Chinese models are priced in CNY: 1 CNY = 1 USD of credit, so no exchange-rate gap. The discount is
+# list price / the vendor's official CNY price (OFFICIAL_CNY below).
+# Cache write is the vendor group's price; the "CN access point" group has no cache write.
+
+# (model, same-price aliases or None, weekday peak x2, in, out, cache write, cache read)
 DEEPSEEK = [
-    ("deepseek-v4-flash", None, "1.05", "3.15", "0.035"),
-    ("deepseek-v4-pro", None, "3.15", "9.45", "0.105"),
-    ("deepseek-v4.1-flash", "deepseek-v4.1-flash-1017, deepseek/deepseek-flash", "0.70", "2.80", "0.014"),
+    ("deepseek-v4-flash", None, True, "1.05", "3.15", "1.05", "0.035"),
+    ("deepseek-v4-pro", None, True, "3.15", "9.45", "3.15", "0.105"),
+    ("deepseek-v4.1-flash", "deepseek-v4.1-flash-1017, deepseek/deepseek-flash", True, "0.70", "2.80", "0.70", "0.014"),
+    ("hy4", None, False, "3.00", "9.00", "3.00", "0.15"),
 ]
 
-# (model, cond key: lt / ge / None, in, out, cache read)
+# (model, cond key: lt / ge / None, in, out, cache write, cache read)
 GLM = [
-    ("glm-5", "lt", "4.00", "18.00", "1.00"),
-    ("glm-5", "ge", "6.00", "22.00", "1.50"),
-    ("glm-5-turbo", "lt", "5.00", "22.00", "1.20"),
-    ("glm-5-turbo", "ge", "7.00", "26.00", "1.80"),
-    ("glm-5.1", "lt", "3.60", "14.40", "0.78"),
-    ("glm-5.1", "ge", "4.80", "16.80", "1.20"),
-    ("glm-5.2", None, "5.60", "19.60", "1.40"),
-    ("glm-5.3", None, "6.40", "22.40", "1.60"),
-    ("glm-5.3-flash", None, "0.64", "2.24", "0.184"),
+    ("glm-5", "lt", "4.00", "18.00", "-", "1.00"),
+    ("glm-5", "ge", "6.00", "22.00", "-", "1.50"),
+    ("glm-5-turbo", "lt", "5.00", "22.00", "-", "1.20"),
+    ("glm-5-turbo", "ge", "7.00", "26.00", "-", "1.80"),
+    ("glm-5.1", "lt", "3.60", "14.40", "-", "0.78"),
+    ("glm-5.1", "ge", "4.80", "16.80", "-", "1.20"),
+    ("glm-5.2", None, "5.60", "19.60", "-", "1.40"),
+    ("glm-5.3", None, "6.40", "22.40", "6.40", "1.60"),
+    ("glm-5.3-flash", None, "0.64", "2.24", "0.64", "0.184"),
 ]
+
+# (model, in, out, cache write, 1-hour cache write, cache read)
+KIMI = [
+    ("kimi-k3", "19.00", "95.00", "19.00", "38.00", "1.90"),
+    ("kimi-k3.1-pro", "13.00", "68.00", "13.00", "26.00", "1.30"),
+]
+
+# (model, same-price aliases or None, in, out, cache write, cache read)
+DOUBAO = [
+    ("doubao-seed-2-1-pro", "doubao-seed-2-1-pro-260915", "5.40", "27.00", "5.40", "1.08"),
+]
+
+# Vendor official CNY prices per 1M tokens: (in, out, cache read or None if unknown).
+# DeepSeek: off-peak price (peak x2 on both sides). hy4: list price (vendor runs 50% off until 2026-12-31).
+OFFICIAL_AS_OF = "2026-11"
+OFFICIAL_CNY = {
+    ("deepseek-v4-flash", None): ("1.00", "4.00", "0.02"),
+    ("deepseek-v4-pro", None): ("4.50", "13.50", "0.15"),
+    ("deepseek-v4.1-flash", None): ("1.00", "4.00", "0.02"),
+    ("hy4", None): ("6.00", "18.00", "0.30"),
+    ("glm-5", "lt"): ("4.00", "18.00", "1.00"),
+    ("glm-5", "ge"): ("6.00", "22.00", "1.50"),
+    ("glm-5-turbo", "lt"): ("5.00", "22.00", None),
+    ("glm-5-turbo", "ge"): ("7.00", "26.00", None),
+    ("glm-5.1", "lt"): ("6.00", "24.00", "1.30"),
+    ("glm-5.1", "ge"): ("8.00", "28.00", None),
+    ("glm-5.2", None): ("8.00", "28.00", "2.00"),
+    ("glm-5.3", None): ("8.00", "28.00", "2.00"),
+    ("glm-5.3-flash", None): ("0.80", "2.80", "0.23"),
+    ("kimi-k3", None): ("20.00", "100.00", "2.00"),
+    ("kimi-k3.1-pro", None): ("13.00", "68.00", "1.30"),
+    ("doubao-seed-2-1-pro", None): ("6.00", "30.00", "1.20"),
+}
 
 # (name, model id, default, 480p, 720p, 768p, 1080p, 2k, 4k)
 VIDEO_SEC = [

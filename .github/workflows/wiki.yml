@@ -1,0 +1,54 @@
+name: Wiki
+
+# Syncs the generated wiki/ directory to the GitHub Wiki.
+# One-time setup: enable Wiki in the repository settings and create any first page in the browser,
+# otherwise the wiki git repository does not exist yet.
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - "wiki/**"
+      - ".github/workflows/wiki.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: wiki
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Generated files are up to date
+        run: python scripts/readme/gen.py . --check
+      - name: Push wiki/ to the GitHub Wiki
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          SHA: ${{ github.sha }}
+        run: |
+          git clone --depth 1 "https://x-access-token:${GH_TOKEN}@github.com/${REPO}.wiki.git" "$RUNNER_TEMP/wiki"
+          cd "$RUNNER_TEMP/wiki"
+          find . -maxdepth 1 -name '*.md' -delete
+          cp "$GITHUB_WORKSPACE"/wiki/*.md .
+          git add -A
+          if git diff --cached --quiet; then
+            echo "Wiki is already up to date."
+            exit 0
+          fi
+          git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
+            commit -m "docs: sync wiki from ${SHA::7}"
+          git push

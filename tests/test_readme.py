@@ -38,6 +38,14 @@ class PriceMath(unittest.TestCase):
     def test_gemini(self):
         self.check(data.GEMINI, 1, 0.3)
 
+    def test_cn_models_compare_with_official_cny_price(self):
+        """CN models are priced in CNY: no exchange rate, every row has an official CNY price to compare with."""
+        for m, c, *_ in gen.cn_rows():
+            self.assertIn((m, c), data.OFFICIAL_CNY, f"{m} ({c}) has no official CNY price")
+        self.assertEqual(len(gen.cn_rows()), len(data.OFFICIAL_CNY))
+        lo, hi = gen.cn_span()
+        self.assertTrue(0 < lo <= hi <= 1, (lo, hi))
+
 
 class Translations(unittest.TestCase):
     def test_every_language_has_every_key(self):
@@ -75,6 +83,43 @@ class GeneratedFiles(unittest.TestCase):
         for m in p["models"]:
             self.assertIn("model", m)
             self.assertIn("unit", m)
+
+
+class Wiki(unittest.TestCase):
+    def setUp(self):
+        import wiki
+        self.wiki = wiki
+        self.pages = wiki.pages()
+        self.names = {os.path.basename(p)[:-3] for p in self.pages}
+
+    def test_every_page_is_rendered_and_in_sidebar(self):
+        sidebar = self.pages["wiki/_Sidebar.md"]
+        for name, _, _ in self.wiki.PAGES:
+            with self.subTest(page=name):
+                self.assertIn(f"wiki/{name}.md", self.pages)
+                self.assertIn(f"]({name})", sidebar)
+
+    def test_internal_links_resolve(self):
+        import re
+        for path, text in self.pages.items():
+            for target in re.findall(r"\]\(([^)#]+)(?:#[^)]*)?\)", text):
+                if "://" in target or target.startswith("mailto:"):
+                    continue
+                with self.subTest(page=path, link=target):
+                    self.assertIn(target, self.names)
+
+    def test_no_hard_coded_keys(self):
+        for path, text in self.pages.items():
+            with self.subTest(page=path):
+                self.assertNotRegex(text, r"sk-[A-Za-z0-9]{8,}")
+
+    def test_every_model_is_listed(self):
+        text = self.pages["wiki/Models-and-Pricing.md"]
+        for rows in (data.OAI, data.CLAUDE, data.GEMINI, data.DEEPSEEK, data.GLM):
+            for r in rows:
+                self.assertIn(f"`{r[0]}`", text)
+        for r in data.VIDEO_SEC + data.VIDEO_TOK:
+            self.assertIn(r[1], text)
 
 
 if __name__ == "__main__":

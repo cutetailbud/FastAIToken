@@ -4,3 +4,4 @@
 # Generated files
 README*.md linguist-generated=true
 pricing.json linguist-generated=true
+wiki/*.md linguist-generated=true

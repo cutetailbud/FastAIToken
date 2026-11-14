@@ -1,0 +1,1 @@
+<sub>本仓库价格信息仅供参考，实际价格、模型列表与分组倍率以官网实时显示为准。 Pricing in this repository is for reference only. Actual prices, model list and group multipliers are subject to the live website. 本页由脚本生成 / Generated from [scripts/readme/wiki.py](https://github.com/cutetailbud/FastAIToken/blob/master/scripts/readme/wiki.py).</sub>

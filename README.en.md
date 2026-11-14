@@ -56,7 +56,7 @@ E.g. a 0.3x group: 0.3 ÷ 7.1 ≈ **4.2%** of the official price.
 | Claude Max Group | 1.5x | ≈ 21.1% |
 | Claude Max Enterprise Line | 1.9x | ≈ 26.8% |
 | Gemini Chat / Coding | 0.3x | ≈ 4.2% |
-| CN Models – DeepSeek / GLM (incl. Kimi / Doubao) | 1x | ≈ 14.1% |
+| CN Models – DeepSeek / GLM (incl. Kimi / Doubao) | 1x | ≈ 50–100% (varies by model) |
 | Video Generation – seedance/h3 | 1x | ≈ 14.1% |
 
 ## OpenAI
@@ -129,42 +129,45 @@ Supports Gemini 3.8 Flash / Gemini 4 Argon. Group “Gemini Chat / Coding [argon
 
 28 models, including DeepSeek V4 Pro and GLM 5.2. Groups “CN Models – DeepSeek / GLM” and “CN access point”, multiplier **1x** (dynamic discount) — the price paid equals the list price.
 
+Chinese models are priced in CNY, so there is no exchange-rate gap: the list price is compared directly with the vendor's official CNY price at **1 CNY = 1 USD**, i.e. vs. official = list price ÷ official price. Most models are below the official price; see the last column of each table (official prices from vendor pricing pages, 2026-11).
+
 ### DeepSeek
 
-> Weekday peak hours 09:00–12:00 and 14:00–18:00 (GMT+8): price ×2
+> Weekday peak hours 09:00–12:00 and 14:00–18:00 (GMT+8): price ×2: `deepseek-v4-flash`, `deepseek-v4-pro`, `deepseek-v4.1-flash`
 
-| Model | Input | Output | Cache read |
-| :--- | ---: | ---: | ---: |
-| `deepseek-v4-flash` | $1.05 | $3.15 | $0.035 |
-| `deepseek-v4-pro` | $3.15 | $9.45 | $0.105 |
-| `deepseek-v4.1-flash`<br><sub>same price: deepseek-v4.1-flash-1017, deepseek/deepseek-flash</sub> | $0.70 | $2.80 | $0.014 |
+| Model | Input | Output | Cache write | Cache read | vs. official price |
+| :--- | ---: | ---: | ---: | ---: | ---: |
+| `deepseek-v4-flash` | $1.05 | $3.15 | $1.05 | $0.035 | Input 105%<br>Output 78.75%<br>Cache read 175% |
+| `deepseek-v4-pro` | $3.15 | $9.45 | $3.15 | $0.105 | 70% |
+| `deepseek-v4.1-flash`<br><sub>same price: deepseek-v4.1-flash-1017, deepseek/deepseek-flash</sub> | $0.70 | $2.80 | $0.70 | $0.014 | 70% |
+| `hy4` | $3.00 | $9.00 | $3.00 | $0.15 | 50% |
 
 ### Zhipu GLM
 
-| Model | Condition | Input | Output | Cache read |
-| :--- | :---: | ---: | ---: | ---: |
-| `glm-5` | Input <32K | $4.00 | $18.00 | $1.00 |
-| `glm-5` | Input ≥32K | $6.00 | $22.00 | $1.50 |
-| `glm-5-turbo` | Input <32K | $5.00 | $22.00 | $1.20 |
-| `glm-5-turbo` | Input ≥32K | $7.00 | $26.00 | $1.80 |
-| `glm-5.1` | Input <32K | $3.60 | $14.40 | $0.78 |
-| `glm-5.1` | Input ≥32K | $4.80 | $16.80 | $1.20 |
-| `glm-5.2` | — | $5.60 | $19.60 | $1.40 |
-| `glm-5.3` | — | $6.40 | $22.40 | $1.60 |
-| `glm-5.3-flash` | — | $0.64 | $2.24 | $0.184 |
+| Model | Condition | Input | Output | Cache write | Cache read | vs. official price |
+| :--- | :---: | ---: | ---: | ---: | ---: | ---: |
+| `glm-5` | Input <32K | $4.00 | $18.00 | — | $1.00 | Same as official |
+| `glm-5` | Input ≥32K | $6.00 | $22.00 | — | $1.50 | Same as official |
+| `glm-5-turbo` | Input <32K | $5.00 | $22.00 | — | $1.20 | Same as official |
+| `glm-5-turbo` | Input ≥32K | $7.00 | $26.00 | — | $1.80 | Same as official |
+| `glm-5.1` | Input <32K | $3.60 | $14.40 | — | $0.78 | 60% |
+| `glm-5.1` | Input ≥32K | $4.80 | $16.80 | — | $1.20 | 60% |
+| `glm-5.2` | — | $5.60 | $19.60 | — | $1.40 | 70% |
+| `glm-5.3` | — | $6.40 | $22.40 | $6.40 | $1.60 | 80% |
+| `glm-5.3-flash` | — | $0.64 | $2.24 | $0.64 | $0.184 | 80% |
 
 ### Kimi (Moonshot AI)
 
-| Model | Input | Output | Cache write | Cache read |
-| :--- | ---: | ---: | ---: | ---: |
-| `kimi-k3` | $19.00 | $95.00 | — | $1.90 |
-| `kimi-k3.1-pro` | $13.00 | $68.00 | $13.00<br><sub>1-hour: $26.00</sub> | $1.30 |
+| Model | Input | Output | Cache write | Cache read | vs. official price |
+| :--- | ---: | ---: | ---: | ---: | ---: |
+| `kimi-k3` | $19.00 | $95.00 | $19.00<br><sub>1-hour: $38.00</sub> | $1.90 | 95% |
+| `kimi-k3.1-pro` | $13.00 | $68.00 | $13.00<br><sub>1-hour: $26.00</sub> | $1.30 | Same as official |
 
 ### Doubao Seed (ByteDance)
 
-| Model | Input | Output | Cache read |
-| :--- | ---: | ---: | ---: |
-| `doubao-seed-2-1-pro`<br><sub>same price: doubao-seed-2-1-pro-260915</sub> | $6.00 | $30.00 | $1.20 |
+| Model | Input | Output | Cache write | Cache read | vs. official price |
+| :--- | ---: | ---: | ---: | ---: | ---: |
+| `doubao-seed-2-1-pro`<br><sub>same price: doubao-seed-2-1-pro-260915</sub> | $5.40 | $27.00 | $5.40 | $1.08 | 90% |
 
 ## Video Models
 

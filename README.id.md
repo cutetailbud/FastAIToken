@@ -56,7 +56,7 @@ Contoh grup 0.3x: 0.3 ÷ 7.1 ≈ **4.2%** dari harga resmi.
 | Grup Claude Max | 1.5x | ≈ 21.1% |
 | Jalur Perusahaan Claude Max | 1.9x | ≈ 26.8% |
 | Gemini Chat / Coding | 0.3x | ≈ 4.2% |
-| Model CN – DeepSeek / GLM (termasuk Kimi / Doubao) | 1x | ≈ 14.1% |
+| Model CN – DeepSeek / GLM (termasuk Kimi / Doubao) | 1x | ≈ 50–100% (berbeda per model) |
 | Pembuatan Video – seedance/h3 | 1x | ≈ 14.1% |
 
 ## OpenAI
@@ -129,42 +129,45 @@ Mendukung Gemini 3.8 Flash / Gemini 4 Argon. Grup “Gemini Chat / Coding [argon
 
 28 model, termasuk DeepSeek V4 Pro dan GLM 5.2. Grup “Model CN – DeepSeek / GLM” dan “Titik akses CN”, pengali **1x** (diskon dinamis) — harga dibayar sama dengan harga daftar.
 
+Model Tiongkok memang dihargai dalam CNY, jadi tidak ada selisih kurs: harga daftar dibandingkan langsung dengan harga resmi CNY vendor pada **1 CNY = 1 USD**, yaitu dibanding harga resmi = harga daftar ÷ harga resmi. Sebagian besar model lebih murah dari harga resmi; lihat kolom terakhir tiap tabel (harga resmi dari halaman harga vendor, 2026-11).
+
 ### DeepSeek
 
-> Jam sibuk hari kerja 09:00–12:00 dan 14:00–18:00 (GMT+8): harga ×2
+> Jam sibuk hari kerja 09:00–12:00 dan 14:00–18:00 (GMT+8): harga ×2: `deepseek-v4-flash`, `deepseek-v4-pro`, `deepseek-v4.1-flash`
 
-| Model | Input | Output | Baca cache |
-| :--- | ---: | ---: | ---: |
-| `deepseek-v4-flash` | $1.05 | $3.15 | $0.035 |
-| `deepseek-v4-pro` | $3.15 | $9.45 | $0.105 |
-| `deepseek-v4.1-flash`<br><sub>harga sama: deepseek-v4.1-flash-1017, deepseek/deepseek-flash</sub> | $0.70 | $2.80 | $0.014 |
+| Model | Input | Output | Tulis cache | Baca cache | Dibanding harga resmi |
+| :--- | ---: | ---: | ---: | ---: | ---: |
+| `deepseek-v4-flash` | $1.05 | $3.15 | $1.05 | $0.035 | Input 105%<br>Output 78.75%<br>Baca cache 175% |
+| `deepseek-v4-pro` | $3.15 | $9.45 | $3.15 | $0.105 | 70% |
+| `deepseek-v4.1-flash`<br><sub>harga sama: deepseek-v4.1-flash-1017, deepseek/deepseek-flash</sub> | $0.70 | $2.80 | $0.70 | $0.014 | 70% |
+| `hy4` | $3.00 | $9.00 | $3.00 | $0.15 | 50% |
 
 ### Zhipu GLM
 
-| Model | Kondisi | Input | Output | Baca cache |
-| :--- | :---: | ---: | ---: | ---: |
-| `glm-5` | Input <32K | $4.00 | $18.00 | $1.00 |
-| `glm-5` | Input ≥32K | $6.00 | $22.00 | $1.50 |
-| `glm-5-turbo` | Input <32K | $5.00 | $22.00 | $1.20 |
-| `glm-5-turbo` | Input ≥32K | $7.00 | $26.00 | $1.80 |
-| `glm-5.1` | Input <32K | $3.60 | $14.40 | $0.78 |
-| `glm-5.1` | Input ≥32K | $4.80 | $16.80 | $1.20 |
-| `glm-5.2` | — | $5.60 | $19.60 | $1.40 |
-| `glm-5.3` | — | $6.40 | $22.40 | $1.60 |
-| `glm-5.3-flash` | — | $0.64 | $2.24 | $0.184 |
+| Model | Kondisi | Input | Output | Tulis cache | Baca cache | Dibanding harga resmi |
+| :--- | :---: | ---: | ---: | ---: | ---: | ---: |
+| `glm-5` | Input <32K | $4.00 | $18.00 | — | $1.00 | Sama dengan resmi |
+| `glm-5` | Input ≥32K | $6.00 | $22.00 | — | $1.50 | Sama dengan resmi |
+| `glm-5-turbo` | Input <32K | $5.00 | $22.00 | — | $1.20 | Sama dengan resmi |
+| `glm-5-turbo` | Input ≥32K | $7.00 | $26.00 | — | $1.80 | Sama dengan resmi |
+| `glm-5.1` | Input <32K | $3.60 | $14.40 | — | $0.78 | 60% |
+| `glm-5.1` | Input ≥32K | $4.80 | $16.80 | — | $1.20 | 60% |
+| `glm-5.2` | — | $5.60 | $19.60 | — | $1.40 | 70% |
+| `glm-5.3` | — | $6.40 | $22.40 | $6.40 | $1.60 | 80% |
+| `glm-5.3-flash` | — | $0.64 | $2.24 | $0.64 | $0.184 | 80% |
 
 ### Kimi (Moonshot AI)
 
-| Model | Input | Output | Tulis cache | Baca cache |
-| :--- | ---: | ---: | ---: | ---: |
-| `kimi-k3` | $19.00 | $95.00 | — | $1.90 |
-| `kimi-k3.1-pro` | $13.00 | $68.00 | $13.00<br><sub>1 jam: $26.00</sub> | $1.30 |
+| Model | Input | Output | Tulis cache | Baca cache | Dibanding harga resmi |
+| :--- | ---: | ---: | ---: | ---: | ---: |
+| `kimi-k3` | $19.00 | $95.00 | $19.00<br><sub>1 jam: $38.00</sub> | $1.90 | 95% |
+| `kimi-k3.1-pro` | $13.00 | $68.00 | $13.00<br><sub>1 jam: $26.00</sub> | $1.30 | Sama dengan resmi |
 
 ### Doubao Seed (ByteDance)
 
-| Model | Input | Output | Baca cache |
-| :--- | ---: | ---: | ---: |
-| `doubao-seed-2-1-pro`<br><sub>harga sama: doubao-seed-2-1-pro-260915</sub> | $6.00 | $30.00 | $1.20 |
+| Model | Input | Output | Tulis cache | Baca cache | Dibanding harga resmi |
+| :--- | ---: | ---: | ---: | ---: | ---: |
+| `doubao-seed-2-1-pro`<br><sub>harga sama: doubao-seed-2-1-pro-260915</sub> | $5.40 | $27.00 | $5.40 | $1.08 | 90% |
 
 ## Model Video
 

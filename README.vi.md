@@ -56,7 +56,7 @@ Ví dụ nhóm 0.3x: 0.3 ÷ 7.1 ≈ **4.2%** giá chính thức.
 | Nhóm Claude Max | 1.5x | ≈ 21.1% |
 | Tuyến doanh nghiệp Claude Max | 1.9x | ≈ 26.8% |
 | Gemini Chat / Coding | 0.3x | ≈ 4.2% |
-| Mô hình TQ – DeepSeek / GLM (gồm Kimi / Doubao) | 1x | ≈ 14.1% |
+| Mô hình TQ – DeepSeek / GLM (gồm Kimi / Doubao) | 1x | ≈ 50–100% (tùy mô hình) |
 | Tạo video – seedance/h3 | 1x | ≈ 14.1% |
 
 ## OpenAI
@@ -129,42 +129,45 @@ Hỗ trợ Gemini 3.8 Flash / Gemini 4 Argon. Nhóm «Gemini Chat / Coding [argo
 
 28 mô hình, bao gồm DeepSeek V4 Pro, GLM 5.2. Nhóm «Mô hình TQ – DeepSeek / GLM» và «Điểm truy cập CN», hệ số **1x** (giảm giá động) — giá thực trả bằng giá niêm yết.
 
+Mô hình Trung Quốc vốn tính bằng NDT nên không có chênh lệch tỷ giá: giá niêm yết được so sánh trực tiếp với giá NDT chính thức của nhà cung cấp theo **1 NDT = 1 USD**, tức so với giá chính thức = giá niêm yết ÷ giá chính thức. Phần lớn mô hình rẻ hơn giá chính thức, xem cột cuối của mỗi bảng (giá chính thức lấy từ trang giá của nhà cung cấp, 2026-11).
+
 ### DeepSeek
 
-> Giờ cao điểm ngày làm việc 09:00–12:00 và 14:00–18:00 (GMT+8): giá ×2
+> Giờ cao điểm ngày làm việc 09:00–12:00 và 14:00–18:00 (GMT+8): giá ×2: `deepseek-v4-flash`, `deepseek-v4-pro`, `deepseek-v4.1-flash`
 
-| Mô hình | Đầu vào | Đầu ra | Đọc cache |
-| :--- | ---: | ---: | ---: |
-| `deepseek-v4-flash` | $1.05 | $3.15 | $0.035 |
-| `deepseek-v4-pro` | $3.15 | $9.45 | $0.105 |
-| `deepseek-v4.1-flash`<br><sub>cùng giá: deepseek-v4.1-flash-1017, deepseek/deepseek-flash</sub> | $0.70 | $2.80 | $0.014 |
+| Mô hình | Đầu vào | Đầu ra | Ghi cache | Đọc cache | So với giá chính thức |
+| :--- | ---: | ---: | ---: | ---: | ---: |
+| `deepseek-v4-flash` | $1.05 | $3.15 | $1.05 | $0.035 | Đầu vào 105%<br>Đầu ra 78.75%<br>Đọc cache 175% |
+| `deepseek-v4-pro` | $3.15 | $9.45 | $3.15 | $0.105 | 70% |
+| `deepseek-v4.1-flash`<br><sub>cùng giá: deepseek-v4.1-flash-1017, deepseek/deepseek-flash</sub> | $0.70 | $2.80 | $0.70 | $0.014 | 70% |
+| `hy4` | $3.00 | $9.00 | $3.00 | $0.15 | 50% |
 
 ### Zhipu GLM
 
-| Mô hình | Điều kiện | Đầu vào | Đầu ra | Đọc cache |
-| :--- | :---: | ---: | ---: | ---: |
-| `glm-5` | Đầu vào <32K | $4.00 | $18.00 | $1.00 |
-| `glm-5` | Đầu vào ≥32K | $6.00 | $22.00 | $1.50 |
-| `glm-5-turbo` | Đầu vào <32K | $5.00 | $22.00 | $1.20 |
-| `glm-5-turbo` | Đầu vào ≥32K | $7.00 | $26.00 | $1.80 |
-| `glm-5.1` | Đầu vào <32K | $3.60 | $14.40 | $0.78 |
-| `glm-5.1` | Đầu vào ≥32K | $4.80 | $16.80 | $1.20 |
-| `glm-5.2` | — | $5.60 | $19.60 | $1.40 |
-| `glm-5.3` | — | $6.40 | $22.40 | $1.60 |
-| `glm-5.3-flash` | — | $0.64 | $2.24 | $0.184 |
+| Mô hình | Điều kiện | Đầu vào | Đầu ra | Ghi cache | Đọc cache | So với giá chính thức |
+| :--- | :---: | ---: | ---: | ---: | ---: | ---: |
+| `glm-5` | Đầu vào <32K | $4.00 | $18.00 | — | $1.00 | Bằng giá chính thức |
+| `glm-5` | Đầu vào ≥32K | $6.00 | $22.00 | — | $1.50 | Bằng giá chính thức |
+| `glm-5-turbo` | Đầu vào <32K | $5.00 | $22.00 | — | $1.20 | Bằng giá chính thức |
+| `glm-5-turbo` | Đầu vào ≥32K | $7.00 | $26.00 | — | $1.80 | Bằng giá chính thức |
+| `glm-5.1` | Đầu vào <32K | $3.60 | $14.40 | — | $0.78 | 60% |
+| `glm-5.1` | Đầu vào ≥32K | $4.80 | $16.80 | — | $1.20 | 60% |
+| `glm-5.2` | — | $5.60 | $19.60 | — | $1.40 | 70% |
+| `glm-5.3` | — | $6.40 | $22.40 | $6.40 | $1.60 | 80% |
+| `glm-5.3-flash` | — | $0.64 | $2.24 | $0.64 | $0.184 | 80% |
 
 ### Kimi (Moonshot AI)
 
-| Mô hình | Đầu vào | Đầu ra | Ghi cache | Đọc cache |
-| :--- | ---: | ---: | ---: | ---: |
-| `kimi-k3` | $19.00 | $95.00 | — | $1.90 |
-| `kimi-k3.1-pro` | $13.00 | $68.00 | $13.00<br><sub>1 giờ: $26.00</sub> | $1.30 |
+| Mô hình | Đầu vào | Đầu ra | Ghi cache | Đọc cache | So với giá chính thức |
+| :--- | ---: | ---: | ---: | ---: | ---: |
+| `kimi-k3` | $19.00 | $95.00 | $19.00<br><sub>1 giờ: $38.00</sub> | $1.90 | 95% |
+| `kimi-k3.1-pro` | $13.00 | $68.00 | $13.00<br><sub>1 giờ: $26.00</sub> | $1.30 | Bằng giá chính thức |
 
 ### Doubao Seed (ByteDance)
 
-| Mô hình | Đầu vào | Đầu ra | Đọc cache |
-| :--- | ---: | ---: | ---: |
-| `doubao-seed-2-1-pro`<br><sub>cùng giá: doubao-seed-2-1-pro-260915</sub> | $6.00 | $30.00 | $1.20 |
+| Mô hình | Đầu vào | Đầu ra | Ghi cache | Đọc cache | So với giá chính thức |
+| :--- | ---: | ---: | ---: | ---: | ---: |
+| `doubao-seed-2-1-pro`<br><sub>cùng giá: doubao-seed-2-1-pro-260915</sub> | $5.40 | $27.00 | $5.40 | $1.08 | 90% |
 
 ## Mô hình video
 

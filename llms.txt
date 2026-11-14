@@ -14,6 +14,7 @@ Key facts:
 - [README (Chinese)](https://github.com/cutetailbud/FastAIToken/blob/master/README.md): full model and price tables
 - [README (English)](https://github.com/cutetailbud/FastAIToken/blob/master/README.en.md): same content in English
 - [pricing.json](https://github.com/cutetailbud/FastAIToken/blob/master/pricing.json): machine-readable list prices, groups and multipliers
+- [Wiki](https://github.com/cutetailbud/FastAIToken/wiki): bilingual (Chinese / English) guides: quick start, billing, models, pricing.json fields, FAQ
 
 ## Examples
 

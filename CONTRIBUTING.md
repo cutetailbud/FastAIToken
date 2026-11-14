@@ -10,7 +10,8 @@
 | `scripts/readme/i18n.py` | 各语言文案 / Text for each language |
 | `scripts/readme/extra.py` | 汇率与折扣文案 / Exchange rate and discount wording |
 | `scripts/readme/gen.py` | 生成 README 与 `pricing.json` / Generates READMEs and `pricing.json` |
-| `README*.md`, `pricing.json` | **生成文件，请勿手改** / **Generated — do not edit by hand** |
+| `scripts/readme/wiki.py` | 生成 Wiki 页面（中英双语）/ Generates the wiki pages (zh + en) |
+| `README*.md`, `pricing.json`, `wiki/` | **生成文件，请勿手改** / **Generated — do not edit by hand** |
 | `examples/` | 调用示例 / Usage examples |
 | `tests/` | 测试 / Tests |
 
@@ -27,6 +28,13 @@ python -m unittest discover -s tests
 
 CI 会检查生成文件是否最新、价格是否满足 `实付价 = 标价 × 倍率`。
 CI verifies generated files are current and that every price satisfies `paid = list × multiplier`.
+
+## Wiki
+
+`wiki/` 合并到 `master` 后由 `Wiki` 工作流同步到 [GitHub Wiki](https://github.com/cutetailbud/FastAIToken/wiki)，请勿在网页上直接编辑。
+首次使用需在仓库设置中启用 Wiki，并在网页上随便创建一个页面以初始化 Wiki 仓库。
+After a merge to `master`, the `Wiki` workflow syncs `wiki/` to the GitHub Wiki; do not edit it in the browser.
+First-time setup: enable Wiki in the repository settings and create any page in the browser to initialise the wiki repository.
 
 ## 新增语言 / Adding a language
 
